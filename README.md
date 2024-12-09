@@ -44,7 +44,3 @@ We welcome contributions from researchers, developers, and clinicians passionate
 
 ### **License**
 This project is licensed under the [MIT License](LICENSE).
-
----
-
-Let me know if you'd like any tweaks or additional sections! 😊
