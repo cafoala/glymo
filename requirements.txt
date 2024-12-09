@@ -1,0 +1,22 @@
+# Core Libraries
+numpy
+pandas
+scipy
+matplotlib
+seaborn
+
+# Machine Learning and Deep Learning
+torch>=2.0.0
+torchvision>=0.15.0
+pytorch-lightning>=2.0.0
+scikit-learn
+shap
+xgboost
+
+# Visualization and Debugging
+tqdm
+jupyter
+
+# SSL and Transformers
+lightly
+transformers
