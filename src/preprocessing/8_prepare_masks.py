@@ -20,13 +20,13 @@ def mask_values(window, mask_prob=0.2):
     masked_window[mask] = -1  # Replace masked positions with -1
     return masked_window, mask
 
-# Process data in chunks
-masked_data_chunks = []
-mask_labels_chunks = []
+# Process data in chunks and save incrementally
+masked_data_file = open(output_masked_file, "wb")
+mask_labels_file = open(output_labels_file, "wb")
 
 print("Processing in chunks...")
-for chunk in pd.read_csv(input_file, chunksize=chunk_size):
-    print(f"Processing chunk with {len(chunk)} rows...")
+for chunk_idx, chunk in enumerate(pd.read_csv(input_file, chunksize=chunk_size)):
+    print(f"Processing chunk {chunk_idx + 1} with {len(chunk)} rows...")
     
     # Extract numeric columns
     glucose_columns = [col for col in chunk.columns if "glc_" in col]
@@ -35,25 +35,21 @@ for chunk in pd.read_csv(input_file, chunksize=chunk_size):
     glucose_data = chunk[glucose_columns].values  # Glucose data
     positional_encodings = chunk[pos_enc_columns].values  # Positional encodings
 
-    # Mask glucose data
-    masked_data = []
-    mask_labels = []
+    # Mask glucose data and combine with positional encodings
+    masked_data_chunk = []
+    mask_labels_chunk = []
+    
     for window in glucose_data:
         masked_window, mask = mask_values(window, mask_prob)
-        masked_data.append(masked_window)
-        mask_labels.append(mask)
-    
-    # Combine masked glucose data with positional encodings
-    masked_windows_with_pe = np.hstack([np.array(masked_data), positional_encodings])
+        masked_data_chunk.append(np.hstack([masked_window, positional_encodings[0]]))  # Combine
+        mask_labels_chunk.append(mask)  # Mask labels
 
-    # Save masked data and labels for this chunk
-    masked_data_chunks.append(masked_windows_with_pe)
-    mask_labels_chunks.append(mask_labels)
+    # Save directly to files
+    np.save(masked_data_file, np.array(masked_data_chunk))
+    np.save(mask_labels_file, np.array(mask_labels_chunk))
 
-# Save the combined results
-print("Saving outputs...")
-np.save(output_masked_file, np.vstack(masked_data_chunks))
-np.save(output_labels_file, np.vstack(mask_labels_chunks))
+masked_data_file.close()
+mask_labels_file.close()
 
 print(f"Masked windows saved to: {output_masked_file}")
 print(f"Mask labels saved to: {output_labels_file}")
