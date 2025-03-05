@@ -15,6 +15,8 @@ subset_size = 1000  # Adjust based on your needs
 masked_windows_subset = masked_windows[:subset_size]
 mask_labels_subset = mask_labels[:subset_size]
 
+print(masked_windows_subset.shape, mask_labels_subset.shape)
+
 # Save the subset
 np.save(output_subset_file, masked_windows_subset)
 np.save(output_labels_subset_file, mask_labels_subset)
