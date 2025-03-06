@@ -116,3 +116,20 @@ plt.show()
 # ✅ Save the trained model
 torch.save(model.state_dict(), model_save_path)
 print(f"Model saved to {model_save_path}")
+
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Pick a random test window
+idx = np.random.randint(len(labels))
+true_values = labels[idx].cpu().numpy()
+predicted_values = outputs[idx].detach().cpu().numpy()
+
+# Plot
+plt.figure(figsize=(12, 5))
+plt.plot(true_values, label="True Glucose Values", linestyle="dashed")
+plt.plot(predicted_values, label="Predicted Glucose Values", alpha=0.7)
+plt.legend()
+plt.title("True vs. Predicted Glucose")
+plt.show()
