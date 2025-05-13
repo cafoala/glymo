@@ -59,7 +59,7 @@ df_final <- data %>%
   # Ensure that time is in order
   arrange(time) %>%
   # Generate pseudoID by adding 1000 to group IDs
-  mutate(pseudoID = cur_group_id() + 1000) %>%
+  mutate(pseudoID = id) %>%
   # Ungroup the dataset
   ungroup() %>%
   # Reorder columns and select only relevant ones
