@@ -1,8 +1,8 @@
 import pandas as pd
 
 # Paths
-cleaned_file = "data/processed/cleaned_cgm.csv"
-interpolated_file = "data/processed/interpolated_cgm.csv"
+cleaned_file = "data/processed/2_cleaned_cgm.csv"
+interpolated_file = "data/processed/3_interpolated_cgm.csv"
 
 # Function to interpolate
 def interpolate_per_id(group):

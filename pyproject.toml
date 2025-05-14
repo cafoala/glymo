@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "glymo"
+version = "0.1.0"
+description = ""
+authors = ["cafoala <catherine.russon@gmail.com>"]
+license = "GLP-3.0"
+readme = "README.md"
+package-mode = false
+
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pandas = "*"
+numpy = "*"
+matplotlib = "*"
+scikit-learn = "*" 
+scipy = "*"
+seaborn = "*"
+#tensorflow = "2.16.1"
+#keras = "*"
+shap = "*"
+diametrics = "*"
+ipykernel = "*"
+statsmodels = "*"
+xgboost = "*"
+optuna = "*"
+hyperopt = "*"
+tsfresh = "*"
+optuna-integration = "*"
+forestplot = "^0.4.0"
+pingouin = "^0.5.5"
+pymer4 = "^0.8.2"
+
+[tool.poetry.dev-dependencies]
+pytest = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

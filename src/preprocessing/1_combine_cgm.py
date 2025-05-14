@@ -11,8 +11,13 @@ os.makedirs(os.path.dirname(output_file), exist_ok=True)
 # Initialize an empty list to store DataFrames
 dataframes = []
 
+# Define file prefixes for different CGM devices
+intervals_5mins = ['dexi_', 'dexip_', 'aleppo_','extodedu_', 'chase_' , 'omalley_', 'weinstock_', 'lynch_']
+intervals_15mins = [ 'extod101_']
+combo = ['tamborlane_']
+
 # Define standard column names
-standard_columns = ["ID", "time", "glc"]
+standard_columns = ["ID", "time", "glc", 'device']
 
 # Process each file
 for filename in os.listdir(standardized_folder):
@@ -32,6 +37,15 @@ for filename in os.listdir(standardized_folder):
         if prefix in ['dexi_', 'dexip_', 'extodedu_', 'extod101_']:
             print(prefix+ ' is in the list')
             df['glc'] = df['glc'] * 18
+
+        # Add device col
+        if prefix in intervals_5mins:
+            df['device'] = 'intervals_5mins'
+        elif prefix in intervals_15mins:
+            df['device'] = 'intervals_15mins'
+        else:
+            df['device'] = 'unknown'
+        print(df.device.value_counts())
 
         # Ensure the file has the required columns
         missing_columns = [col for col in standard_columns if col not in df.columns]
