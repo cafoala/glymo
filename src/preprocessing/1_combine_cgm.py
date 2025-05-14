@@ -3,7 +3,7 @@ import pandas as pd
 
 # Define directories
 standardized_folder = "data/processed/cgm/"  # Folder containing standardized files
-output_file = "data/processed/combined_cgm.csv"
+output_file = "data/processed/1_combined_cgm.csv"
 
 # Ensure the output folder exists
 os.makedirs(os.path.dirname(output_file), exist_ok=True)
@@ -29,6 +29,10 @@ for filename in os.listdir(standardized_folder):
         # Rename columns to standard names
         df.rename(columns={"id": "ID", "gl": "glc"}, inplace=True)
         
+        if prefix in ['dexi_', 'dexip_', 'extodedu_', 'extod101_']:
+            print(prefix+ ' is in the list')
+            df['glc'] = df['glc'] * 18
+
         # Ensure the file has the required columns
         missing_columns = [col for col in standard_columns if col not in df.columns]
         if missing_columns:

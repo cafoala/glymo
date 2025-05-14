@@ -3,8 +3,8 @@ import numpy as np
 import os
 
 # Paths
-combined_file = "data/processed/combined_cgm.csv"  # Path to the combined file
-cleaned_file = "data/processed/cleaned_cgm.csv"  # Path to save the cleaned file
+combined_file = "data/processed/1_combined_cgm.csv"  # Path to the combined file
+cleaned_file = "data/processed/2_cleaned_cgm.csv"  # Path to save the cleaned file
 
 # Ensure the output folder exists
 os.makedirs(os.path.dirname(cleaned_file), exist_ok=True)
@@ -17,7 +17,7 @@ df = pd.read_csv(combined_file)
 df["time"] = pd.to_datetime(df["time"], errors="coerce")
 
 # Round `time` to the nearest 5 minutes
-df["time"] = df["time"].dt.round("5min")
+df["time"] = df["time"].dt.round("1min")
 
 # Drop duplicate rows after rounding
 df = df.drop_duplicates(subset=["ID", "time"])
